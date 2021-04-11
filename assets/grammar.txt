@@ -1,4 +1,6 @@
-expression = cpp_call (separator cpp_call)*
+block_body = expression (separator expression)*
+block = "{" block_body "}"
+expression = cpp_call / block
 separator = "\n"
 cpp_call = "cpp(" string_literal ")"
 string_literal = ~"\"(\\\\.|[^\"\\\\])*\""

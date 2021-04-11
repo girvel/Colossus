@@ -9,8 +9,15 @@ with open('assets/example.txt') as f:
 
 
 class Translator(pm.NodeVisitor):
-    def visit_expression(self, node, children):
-        return "\n".join((children[0], *(pair[1] for pair in children[1])))
+    def visit_block_body(self, node, children):
+        return "\n".join((
+            children[0],
+            *(
+                (pair[1] for pair in children[1])
+                if children[1] else
+                ()
+            )
+        ))
         
     def visit_cpp_call(self, node, children):
         _, string, _ = children
@@ -19,8 +26,14 @@ class Translator(pm.NodeVisitor):
     def visit_string_literal(self, node, children):
         return node.text
 
-    def generic_visit(self, node, visited_children):
-        return visited_children or None
+    def visit_block(self, node, children):
+        return ''.join(children)
+
+    def generic_visit(self, node, children):
+        if children is not None and len(children) == 1:
+            return children[0]
+        
+        return children or node.text
 
 
 with open('assets/template.cpp') as f:

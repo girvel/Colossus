@@ -1,0 +1,7 @@
+Colossus 1.0:
+  First stable release with minimal functionality
+  Colossus 0.1:
+  Realize cpp() operator
+  ✔ Operator itself @done (21-04-11 20:11)
+  ☐ Spaces
+  ☐ Blocks (without value return)
