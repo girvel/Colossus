@@ -1,10 +1,10 @@
 import parsimonious as pm
 import ast
 
-with open('grammar.txt') as f:
+with open('assets/grammar.txt') as f:
     grammar = pm.Grammar(f.read())
 
-with open('example.txt') as f:
+with open('assets/example.txt') as f:
     syntax_tree = grammar.parse(f.read())
 
 
@@ -22,7 +22,8 @@ class Translator(pm.NodeVisitor):
     def generic_visit(self, node, visited_children):
         return visited_children or None
 
-with open('template.cpp') as f:
+
+with open('assets/template.cpp') as f:
     template = f.read()
 
 result = template.format(Translator().visit(syntax_tree))
