@@ -3,5 +3,5 @@ Colossus 1.0:
   Colossus 0.1:
   Realize cpp() operator
   ✔ Operator itself @done (21-04-11 20:11)
-  ☐ Spaces
-  ☐ Blocks (without value return)
+  ✘ Spaces @cancelled (21-04-11 23:13)
+  ✔ Blocks (without value return) @done (21-04-11 21:12)

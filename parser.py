@@ -12,11 +12,7 @@ class Translator(pm.NodeVisitor):
     def visit_block_body(self, node, children):
         return "\n".join((
             children[0],
-            *(
-                (pair[1] for pair in children[1])
-                if children[1] else
-                ()
-            )
+            *(pair[1] for pair in children[1])
         ))
         
     def visit_cpp_call(self, node, children):
@@ -29,6 +25,9 @@ class Translator(pm.NodeVisitor):
     def visit_block(self, node, children):
         return ''.join(children)
 
+    def visit_expression(self, node, children):
+        print(children)
+
     def generic_visit(self, node, children):
         if children is not None and len(children) == 1:
             return children[0]
@@ -40,3 +39,4 @@ with open('assets/template.cpp') as f:
     template = f.read()
 
 result = template.format(Translator().visit(syntax_tree))
+print(result)
