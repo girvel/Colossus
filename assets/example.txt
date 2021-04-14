@@ -1,8 +1,0 @@
-cpp("int a = 1;")
-cpp("std::cout << a;")
-{ cpp("std::cout << a;") }
-{
-cpp("std::cout << a;")
-cpp("std::cout << a;")
-}
-{ cpp("std::cout << a;") }

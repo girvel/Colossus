@@ -1,0 +1,5 @@
+{
+cpp("int a = 1;")
+cpp("std::cout << a << std::endl;")
+}
+cpp("std::cout << \"Hello, world!\" << std::endl;")

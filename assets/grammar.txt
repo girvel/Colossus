@@ -2,7 +2,7 @@ block_body = expression (separator expression)*
 block = ~"{[\n ]" block_body ~"[\n ]}"
 separator = "\n"
 
-expression = any_space (block / cpp_call)
+expression = block / cpp_call
 cpp_call = "cpp(" string_literal ")"
 string_literal = ~"\"(\\\\.|[^\"\\\\])*\""
 

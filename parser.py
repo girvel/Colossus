@@ -1,11 +1,11 @@
 import parsimonious as pm
 import ast
 
-with open('assets/grammar.txt') as f:
-    grammar = pm.Grammar(f.read())
+with open('assets/grammar.txt') as _f:
+    grammar = pm.Grammar(_f.read())
 
-with open('assets/example.txt') as f:
-    syntax_tree = grammar.parse(f.read())
+with open('assets/template.cpp') as _f:
+    template = _f.read()
 
 
 class Translator(pm.NodeVisitor):
@@ -26,17 +26,11 @@ class Translator(pm.NodeVisitor):
         return ''.join(children)
 
     def visit_expression(self, node, children):
-        print(children)
+        return children[0]
 
     def generic_visit(self, node, children):
-        if children is not None and len(children) == 1:
-            return children[0]
-        
         return children or node.text
 
 
-with open('assets/template.cpp') as f:
-    template = f.read()
-
-result = template.format(Translator().visit(syntax_tree))
-print(result)
+def translate(source):
+    return template.format(Translator().visit(grammar.parse(source)))
