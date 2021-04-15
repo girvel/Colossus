@@ -1,9 +1,15 @@
-block_body = expression (separator expression)*
+block_body = statement (separator statement)*
 block = ~"{[\n ]" block_body ~"[\n ]}"
 separator = "\n"
 
+statement = expression / function_definition
 expression = block / cpp_call
 cpp_call = "cpp(" string_literal ")"
 string_literal = ~"\"(\\\\.|[^\"\\\\])*\""
 
-any_space = ~"/s*"
+function_definition = identifier " = " arguments_definition ": " identifier " => " expression 
+identifier = ~"[\w\d]+"
+arguments_definition = "()" / ("(" argument_definition (", " argument_definition)* ")")
+argument_definition = (identifier / cpp_call) " " identifier
+
+any_space = ~"\s*"

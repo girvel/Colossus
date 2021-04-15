@@ -33,7 +33,7 @@ int a
 a = 2
 
 # block of code returns last value
-int b = {
+a = {
 	int c = 1 + 1
 	c * 2
 }
@@ -42,7 +42,7 @@ int b = {
 f = (int x) -> x * x
 
 # you can execute C++ code by special function
-= = (int& left, int right) -> cpp("left = right;")
+= = (cpp("int&") left, int right) -> cpp("left = right;")
 
 # you can temporarily use C++-like templates
 # but this expression will be removed soon
@@ -62,11 +62,11 @@ cpp("std::cout << a;")
 
 ## Colossus 0.2
 
-Functions definitions: `<name> = (<arglist>) => expression` ---> `auto <replace_characters(name)>(<arglist> { return (<expression>); }`
+Functions definitions: `<name> = (<arglist>): <return type> => expression` ---> `<return type> <replace_characters(name)>(<arglist> { return (<expression>); }`
 
 Functions calls: `<name>(<arguments>)` ---> `<replace_characters(name)>(<arguments>);`
 
-Functions infix calls: ``
+Functions infix calls: `<expression> <name> <expression>`
 
 ```py
 f = (int x) => x

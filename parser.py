@@ -9,6 +9,9 @@ with open('assets/template.cpp') as _f:
 
 
 class Translator(pm.NodeVisitor):
+    def generic_visit(self, node, children):
+        return children or node.text
+
     def visit_block_body(self, node, children):
         return "\n".join((
             children[0],
@@ -28,8 +31,36 @@ class Translator(pm.NodeVisitor):
     def visit_expression(self, node, children):
         return children[0]
 
-    def generic_visit(self, node, children):
-        return children or node.text
+    def visit_statement(self, node, children):
+        return children[0]
+
+    def visit_function_definition(self, node, children):
+        return '{} {}{} {{ return ({}); }}'.format(
+            children[4],
+            children[0],
+            children[2],
+            children[6],
+        )
+
+    def visit_identifier(self, node, children):
+        return replace_characters(node.text)
+
+    def visit_arguments_definition(self, node, children):
+        print(children)
+        if children[0] == "()":
+            return "()"
+
+        children = children[0]
+        return "({})".format(
+            ", ".join((children[1], *(p[1] for p in children[2])))
+        )
+            
+    def visit_argument_definition(self, node, children):
+        return f'{children[0][0]} {children[2]}'
+
+
+def replace_characters(identifier):
+    return identifier
 
 
 def translate(source):
